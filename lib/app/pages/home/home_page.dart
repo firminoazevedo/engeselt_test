@@ -49,7 +49,9 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => LocalDetailsPage()));
+                          builder: (context) => LocalDetailsPage(
+                                localModel: locals[i],
+                              )));
                 },
                 child: ListTile(
                   title: Text(locals[i].type ?? 'Type'),
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       CustomTextField(
                         hint: 'Descrição',
                         icon: Icons.local_activity,
-                        textEditingController: textLatLangEditingController,
+                        textEditingController: textDescriptionEditingController,
                       ),
                       CustomTextField(
                         hint: 'Tipo',
