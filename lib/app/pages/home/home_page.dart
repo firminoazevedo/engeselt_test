@@ -1,4 +1,6 @@
+import 'package:engeselt_teste/app/maps/maps_page.dart';
 import 'package:engeselt_teste/app/models/local_model.dart';
+import 'package:engeselt_teste/app/pages/home/components/custom_drop_down.dart';
 import 'package:engeselt_teste/app/pages/local_details/local_details.dart';
 import 'package:engeselt_teste/app/store/local_store.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  LatLng? _latLng;
   TextEditingController textLatLangEditingController = TextEditingController();
   TextEditingController textDescriptionEditingController =
       TextEditingController();
@@ -64,30 +67,64 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+              isScrollControlled: true,
               context: context,
               builder: (BuildContext contex) {
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTextField(
-                        hint: 'LatLang',
-                        icon: Icons.local_activity,
-                        textEditingController: textLatLangEditingController,
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text("Selecionar Localização"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.15),
+                              spreadRadius: 3,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('Localização atual'),
+                            InkWell(
+                                onTap: () async {
+                                  _latLng = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (contex) => MapsPage()));
+                                },
+                                child: Text('Selecionar no mapa')),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       CustomTextField(
                         hint: 'Descrição',
-                        icon: Icons.local_activity,
+                        icon: Icons.text_format,
                         textEditingController: textDescriptionEditingController,
                       ),
-                      CustomTextField(
-                        hint: 'Tipo',
-                        icon: Icons.local_activity,
-                        textEditingController: textTypeEditingController,
-                      ),
+                      CustomDropDowm(),
                       CustomTextField(
                         hint: 'Data',
-                        icon: Icons.local_activity,
+                        icon: Icons.calendar_today,
                         textEditingController: textDataEditingController,
                       ),
                       CustomTextField(
