@@ -87,6 +87,12 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
                     onTap: () async {
                       _latLng = await Navigator.push(context,
                           MaterialPageRoute(builder: (contex) => MapsPage()));
+                      if (_latLng != null) {
+                        _previewUrlImage =
+                            LocationUtils.generateLocationPreviewImage(
+                                _latLng!.latitude, _latLng!.longitude);
+                        setState(() {});
+                      }
                     },
                     child: Text('Selecionar no mapa')),
               ],
