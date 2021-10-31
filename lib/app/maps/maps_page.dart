@@ -14,9 +14,7 @@ class _MapsPageState extends State<MapsPage> {
 
   LatLng? position;
   void selectPosition(LatLng pos) {
-    print('54545');
     position = pos;
-    print(position);
     showAppBar = true;
     setState(() {});
   }

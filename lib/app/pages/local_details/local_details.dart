@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:engeselt_teste/app/models/local_model.dart';
 import 'package:flutter/material.dart';
 
