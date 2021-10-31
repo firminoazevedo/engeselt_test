@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapsPage extends StatefulWidget {
   const MapsPage({Key? key}) : super(key: key);
@@ -19,10 +20,22 @@ class _MapsPageState extends State<MapsPage> {
     setState(() {});
   }
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  LatLng? _center;
+
+  Future<void> getCurrentLocation() async {
+    final locData = await Location().getLocation();
+    _center = LatLng(locData.latitude!, locData.longitude!);
+    setState(() {});
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  @override
+  void initState() {
+    getCurrentLocation();
+    super.initState();
   }
 
   @override
@@ -40,19 +53,23 @@ class _MapsPageState extends State<MapsPage> {
               ],
             )
           : null,
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        onTap: selectPosition,
-        initialCameraPosition: CameraPosition(zoom: 11, target: _center),
-        markers: position == null
-            ? Set()
-            : {
-                Marker(
-                  position: position!,
-                  markerId: MarkerId('p1'),
-                )
-              }.toSet(),
-      ),
+      body: _center == null
+          ? Center(
+              child: Text('Carregando'),
+            )
+          : GoogleMap(
+              onMapCreated: _onMapCreated,
+              onTap: selectPosition,
+              initialCameraPosition: CameraPosition(zoom: 11, target: _center!),
+              markers: position == null
+                  ? Set()
+                  : {
+                      Marker(
+                        position: position!,
+                        markerId: MarkerId('p1'),
+                      )
+                    }.toSet(),
+            ),
     );
   }
 }
