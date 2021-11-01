@@ -36,16 +36,19 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
 
   String? _previewUrlImage;
   LatLng? _latLng;
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  bool _isLoadingMap = false;
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   Future<void> getCurrentLocation() async {
+    _isLoadingMap = true;
+    setState(() {});
     final locData = await Location().getLocation();
     _previewUrlImage = LocationUtils.generateLocationPreviewImage(
         locData.latitude, locData.longitude);
     _latLng = LatLng(locData.latitude!, locData.longitude!);
+    _isLoadingMap = false;
     setState(() {});
   }
 
@@ -90,9 +93,12 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
                       _latLng = await Navigator.push(context,
                           MaterialPageRoute(builder: (contex) => MapsPage()));
                       if (_latLng != null) {
+                        _isLoadingMap = true;
+                        setState(() {});
                         _previewUrlImage =
                             LocationUtils.generateLocationPreviewImage(
                                 _latLng!.latitude, _latLng!.longitude);
+                        _isLoadingMap = false;
                         setState(() {});
                       }
                     },
@@ -103,15 +109,22 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
           SizedBox(
             height: 10,
           ),
-          _previewUrlImage != null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(85)),
-                      child: Image.network(_previewUrlImage!)),
+          _isLoadingMap
+              ? Center(
+                  child: CircularProgressIndicator(),
                 )
-              : Container(),
+              : _previewUrlImage != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(85)),
+                          child: Image.network(_previewUrlImage!)),
+                    )
+                  : Container(),
+          SizedBox(
+            height: 10,
+          ),
           CustomTextField(
             hint: 'Descrição',
             icon: Icons.text_snippet,
@@ -162,6 +175,7 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
                     photos: [textPhotosEditingController.text],
                   );
                   print('Validado');
+                  Navigator.pop(context);
                 }
                 setState(() {});
               },

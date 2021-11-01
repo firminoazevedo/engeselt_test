@@ -48,9 +48,15 @@ class _HomePageState extends State<HomePage> {
                   leading: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.amber,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  locals[i].photos![0],
+                                ))),
                         width: 50,
                         height: 50,
-                        color: Colors.amber,
                         child: Text('IMG')),
                   ),
                   title: Text(locals[i].description!),
