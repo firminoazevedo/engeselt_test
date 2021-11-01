@@ -21,6 +21,12 @@ class DateComponent extends StatefulWidget {
 
 class _DateComponentState extends State<DateComponent> {
   @override
+  void initState() {
+    widget.textEditingController.text = 'Data da visita';
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
