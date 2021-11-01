@@ -20,7 +20,7 @@ class _LocalDetailsPageState extends State<LocalDetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('LatLang ${widget.localModel.latLang}'),
+            Text('LatLang ${widget.localModel.latLng}'),
             Text('Descrição ${widget.localModel.description}'),
             Text('Tipo ${widget.localModel.type}'),
             Text('Data ${widget.localModel.data}'),

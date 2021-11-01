@@ -45,7 +45,16 @@ class _HomePageState extends State<HomePage> {
                               )));
                 },
                 child: ListTile(
-                  title: Text(locals[i].type ?? 'Type'),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    child: Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.amber,
+                        child: Text('IMG')),
+                  ),
+                  title: Text(locals[i].description!),
+                  subtitle: Text(locals[i].observations!),
                 ),
               );
             },

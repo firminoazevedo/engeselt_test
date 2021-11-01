@@ -1,17 +1,19 @@
 import 'package:engeselt_teste/app/models/local_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocalStore {
   final locals = ValueNotifier<List<LocalModel>>([]);
   void addLocal(
-      {String? latLang,
+      {LatLng? latLng,
       String? description,
       String? type,
       String? data,
       String? observations,
       List<String>? photos}) {
     final local = LocalModel(
-        latLang: latLang,
+        latLng: latLng,
+        description: description,
         type: type,
         data: data,
         observations: observations,

@@ -2,9 +2,17 @@
 
 import 'package:flutter/material.dart';
 
-class CustomDropDowm extends StatelessWidget {
-  const CustomDropDowm({Key? key}) : super(key: key);
+class CustomDropDowm extends StatefulWidget {
+  final TextEditingController? textEditingController;
+  const CustomDropDowm({Key? key, this.textEditingController})
+      : super(key: key);
 
+  @override
+  State<CustomDropDowm> createState() => _CustomDropDowmState();
+}
+
+class _CustomDropDowmState extends State<CustomDropDowm> {
+  bool changedTitle = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,8 +31,13 @@ class CustomDropDowm extends StatelessWidget {
       ),
       child: DropdownButton<String>(
           isExpanded: true,
-          onChanged: (value) {},
-          hint: Text('Tipo'),
+          onChanged: (value) {
+            widget.textEditingController!.text = value!;
+            changedTitle = true;
+            setState(() {});
+          },
+          hint:
+              Text(changedTitle ? widget.textEditingController!.text : 'Tipo'),
           items: ['Privado', 'Público', 'Outros'].map((e) {
             return DropdownMenuItem(value: e, child: Text(e));
           }).toList()),

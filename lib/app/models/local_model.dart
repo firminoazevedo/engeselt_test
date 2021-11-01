@@ -1,5 +1,7 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class LocalModel {
-  String? latLang;
+  LatLng? latLng;
   String? description;
   String? type;
   String? data;
@@ -7,7 +9,7 @@ class LocalModel {
   List<String>? photos;
 
   LocalModel({
-    this.latLang,
+    this.latLng,
     this.description,
     this.type,
     this.data,

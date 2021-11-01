@@ -3,6 +3,7 @@
 import 'package:engeselt_teste/app/maps/maps_page.dart';
 import 'package:engeselt_teste/app/pages/home/components/custom_drop_down.dart';
 import 'package:engeselt_teste/app/pages/home/components/custom_text_field_component.dart';
+import 'package:engeselt_teste/app/pages/home/components/date_component.dart';
 import 'package:engeselt_teste/app/store/local_store.dart';
 import 'package:engeselt_teste/app/utils/location_utils.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,7 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
     final locData = await Location().getLocation();
     _previewUrlImage = LocationUtils.generateLocationPreviewImage(
         locData.latitude, locData.longitude);
+    _latLng = LatLng(locData.latitude!, locData.longitude!);
     setState(() {});
   }
 
@@ -115,37 +117,67 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
             icon: Icons.text_snippet,
             textEditingController: textDescriptionEditingController,
           ),
-          CustomDropDowm(),
-          CustomTextField(
+          SizedBox(
+            height: 10,
+          ),
+          CustomDropDowm(
+            textEditingController: textTypeEditingController,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          DateComponent(
             hint: 'Data',
             icon: Icons.calendar_today,
             textEditingController: textDataEditingController,
+          ),
+          SizedBox(
+            height: 10,
           ),
           CustomTextField(
             hint: 'Observações',
             icon: Icons.text_snippet,
             textEditingController: textObservationsEditingController,
           ),
+          SizedBox(
+            height: 10,
+          ),
           CustomTextField(
               hint: 'Url photo',
               icon: Icons.photo,
               textEditingController: textPhotosEditingController),
+          SizedBox(
+            height: 10,
+          ),
           ElevatedButton(
               style: ButtonStyle(alignment: Alignment.center),
               onPressed: () {
-                widget.localStore.addLocal(
-                  type: textTypeEditingController.text,
-                  description: textDescriptionEditingController.text,
-                  data: textDataEditingController.text,
-                  latLang: textLatLangEditingController.text,
-                  observations: textObservationsEditingController.text,
-                  photos: [textPhotosEditingController.text],
-                );
+                if (validation()) {
+                  widget.localStore.addLocal(
+                    type: textTypeEditingController.text,
+                    description: textDescriptionEditingController.text,
+                    data: textDataEditingController.text,
+                    latLng: _latLng,
+                    observations: textObservationsEditingController.text,
+                    photos: [textPhotosEditingController.text],
+                  );
+                  print('Validado');
+                }
                 setState(() {});
               },
               child: Text('Adicionar Local'))
         ],
       ),
     );
+  }
+
+  bool validation() {
+    if (textDescriptionEditingController.text.length < 3 ||
+        textDataEditingController.text.length < 3 ||
+        textObservationsEditingController.text.length < 3) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
