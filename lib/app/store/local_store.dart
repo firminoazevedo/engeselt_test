@@ -22,5 +22,8 @@ class LocalStore {
     locals.notifyListeners();
   }
 
-  void removeLocal() {}
+  void removeLocal(int i) {
+    locals.value.removeAt(i);
+    locals.notifyListeners();
+  }
 }

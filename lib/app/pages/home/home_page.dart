@@ -55,6 +55,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   title: Text(locals[i].description!),
                   subtitle: Text(locals[i].observations!),
+                  trailing: IconButton(
+                      onPressed: () {
+                        localStore.removeLocal(i);
+                      },
+                      icon: Icon(Icons.remove)),
                 ),
               );
             },
