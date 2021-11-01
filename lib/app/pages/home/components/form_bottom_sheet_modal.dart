@@ -26,21 +26,17 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
   late GoogleMapController mapController;
 
   //Text controllers
-  TextEditingController textLatLangEditingController = TextEditingController();
   TextEditingController textDescriptionEditingController =
       TextEditingController();
   TextEditingController textTypeEditingController = TextEditingController();
   TextEditingController textDataEditingController = TextEditingController();
   TextEditingController textObservationsEditingController =
       TextEditingController();
-  TextEditingController textPhotosEditingController = TextEditingController();
 
   String? _previewUrlImage;
   LatLng? _latLng;
   bool _isLoadingMap = false;
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+  List<String> imgsPath = [];
 
   Future<void> getCurrentLocation() async {
     _isLoadingMap = true;
@@ -81,6 +77,8 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
                   ),
                 ],
               ),
+
+              // SELECIONAR LOCALIZAÇÃO
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,6 +107,8 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
             SizedBox(
               height: 10,
             ),
+
+            // MOSTRA MAPA ESTATICO
             _isLoadingMap
                 ? Center(
                     child: CircularProgressIndicator(),
@@ -125,6 +125,8 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
             SizedBox(
               height: 10,
             ),
+
+            // FORMULARIO
             CustomTextField(
               hint: 'Descrição',
               icon: Icons.text_snippet,
@@ -155,10 +157,14 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
             SizedBox(
               height: 10,
             ),
-            AddPhotosWidget(),
+            AddPhotosWidget(
+              photos: imgsPath,
+            ),
             SizedBox(
               height: 10,
             ),
+
+            // BOTÃO ADICIONAR LOCAL
             ElevatedButton(
                 style: ButtonStyle(alignment: Alignment.center),
                 onPressed: () {
@@ -169,7 +175,7 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
                       data: textDataEditingController.text,
                       latLng: _latLng,
                       observations: textObservationsEditingController.text,
-                      photos: [textPhotosEditingController.text],
+                      photos: imgsPath,
                     );
                     print('Validado');
                     Navigator.pop(context);
@@ -184,6 +190,7 @@ class _FormBottomSheetState extends State<FormBottomSheet> {
   }
 
   bool validation() {
+    return true;
     if (_latLng == null ||
         textDescriptionEditingController.text.length < 3 ||
         textDataEditingController.text.length < 3 ||
