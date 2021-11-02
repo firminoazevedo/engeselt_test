@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:engeselt_teste/app/models/local_model.dart';
 import 'package:engeselt_teste/app/pages/home/components/form_bottom_sheet_modal.dart';
 import 'package:engeselt_teste/app/pages/local_details/local_details.dart';
+import 'package:engeselt_teste/app/pages/saved_locals/saved_locals_page.dart';
 import 'package:engeselt_teste/app/store/local_store.dart';
 import 'package:flutter/material.dart';
 
@@ -21,66 +22,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Locais Salvos'),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.list))],
+        title: Text('Pontos de interesse'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SavedLocals(localStore: localStore)));
+              },
+              icon: Icon(Icons.map))
+        ],
       ),
-      body: ValueListenableBuilder<List<LocalModel>>(
-        valueListenable: localStore.locals,
-        builder: (context, locals, child) {
-          return ListView.builder(
-            itemCount: locals.length,
-            itemBuilder: (context, i) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LocalDetailsPage(
-                                localModel: locals[i],
-                              )));
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.15),
-                        spreadRadius: 3,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                          ),
-                          width: 50,
-                          height: 50,
-                          child: Image.file(
-                            File(locals[i].photos![0]),
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    title: Text(locals[i].description!),
-                    subtitle: Text(locals[i].observations!),
-                    trailing: IconButton(
-                        onPressed: () {
-                          localStore.removeLocal(i);
-                        },
-                        icon: Icon(Icons.delete)),
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
+      body: Container(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
