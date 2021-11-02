@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:engeselt_teste/app/maps/maps_page.dart';
 import 'package:engeselt_teste/app/pages/home/components/add_photos_widget.dart';
 import 'package:engeselt_teste/app/pages/home/components/custom_drop_down.dart';
 import 'package:engeselt_teste/app/pages/home/components/custom_text_field_component.dart';
 import 'package:engeselt_teste/app/pages/home/components/date_component.dart';
+import 'package:engeselt_teste/app/pages/maps/maps_page.dart';
 import 'package:engeselt_teste/app/store/local_store.dart';
 import 'package:engeselt_teste/app/utils/location_utils.dart';
 import 'package:flutter/material.dart';

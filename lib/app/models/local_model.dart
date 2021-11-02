@@ -2,6 +2,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class LocalModel {
+  String id = DateTime.now().millisecondsSinceEpoch.toString();
   LatLng? latLng;
   String? description;
   String? type;
@@ -17,4 +18,18 @@ class LocalModel {
     this.observations,
     this.photos,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'latLng': {
+        'latitude': latLng!.latitude,
+        'longitude': latLng!.longitude,
+      },
+      'description': description,
+      'type': type,
+      'data': data,
+      'observations': observations,
+      'photos': photos
+    };
+  }
 }

@@ -10,7 +10,7 @@ class LocalStore {
       String? type,
       String? data,
       String? observations,
-      List<String>? photos}) {
+      List<String>? photos}) async {
     final local = LocalModel(
         latLng: latLng,
         description: description,
@@ -18,6 +18,7 @@ class LocalStore {
         data: data,
         observations: observations,
         photos: photos);
+    final map = {local.id: local.toJson()};
     locals.value.add(local);
     locals.notifyListeners();
   }

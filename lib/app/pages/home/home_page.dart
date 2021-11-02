@@ -39,27 +39,42 @@ class _HomePageState extends State<HomePage> {
                                 localModel: locals[i],
                               )));
                 },
-                child: ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                        ),
-                        width: 50,
-                        height: 50,
-                        child: Image.file(
-                          File(locals[i].photos![0]),
-                          fit: BoxFit.cover,
-                        )),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.15),
+                        spreadRadius: 3,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
-                  title: Text(locals[i].description!),
-                  subtitle: Text(locals[i].observations!),
-                  trailing: IconButton(
-                      onPressed: () {
-                        localStore.removeLocal(i);
-                      },
-                      icon: Icon(Icons.remove)),
+                  child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                          ),
+                          width: 50,
+                          height: 50,
+                          child: Image.file(
+                            File(locals[i].photos![0]),
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                    title: Text(locals[i].description!),
+                    subtitle: Text(locals[i].observations!),
+                    trailing: IconButton(
+                        onPressed: () {
+                          localStore.removeLocal(i);
+                        },
+                        icon: Icon(Icons.delete)),
+                  ),
                 ),
               );
             },
