@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:engeselt_teste/app/pages/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -29,18 +30,7 @@ class _DateComponentState extends State<DateComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.15),
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+      decoration: DECORATION_SHADOW,
       child: ListTile(
         leading: IconButton(
             onPressed: () async {
@@ -54,7 +44,18 @@ class _DateComponentState extends State<DateComponent> {
               setState(() {});
             },
             icon: Icon(Icons.calendar_today)),
-        title: Text(widget.textEditingController.text),
+        title: InkWell(
+            onTap: () async {
+              final date = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2010),
+                  lastDate: DateTime(2022));
+              widget.textEditingController.text =
+                  DateFormat.yMMMMEEEEd().format(date!);
+              setState(() {});
+            },
+            child: Text(widget.textEditingController.text)),
       ),
     );
   }

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:engeselt_teste/app/pages/shared/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDowm extends StatefulWidget {
@@ -16,20 +17,10 @@ class _CustomDropDowmState extends State<CustomDropDowm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 23),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.15),
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 23, vertical: 3),
+      decoration: DECORATION_SHADOW,
       child: DropdownButton<String>(
+          underline: SizedBox(),
           isExpanded: true,
           onChanged: (value) {
             widget.textEditingController!.text = value!;

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:engeselt_teste/app/models/local_model.dart';
 import 'package:engeselt_teste/app/services/database_handler.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,8 +9,12 @@ class LocalStore {
   LocalStore() {
     DatabaseHandler().getLocals().then((value) {
       locals.value = value;
+      loadMarker();
     });
   }
+
+  final markers = ValueNotifier<Set<Marker>>({});
+
   final locals = ValueNotifier<List<LocalModel>>([]);
   void addLocal(
       {LatLng? latLng,
@@ -30,11 +36,40 @@ class LocalStore {
 
     locals.value.add(localModel);
     locals.notifyListeners();
+    addMarker(localModel);
   }
 
   void removeLocal(int i, int id) {
     DatabaseHandler().deleteLocal(id);
+    markers.value.removeWhere((element) {
+      if (element.markerId.value == id.toString()) {
+        return true;
+      }
+      return false;
+    });
+    markers.notifyListeners();
     locals.value.removeAt(i);
     locals.notifyListeners();
+  }
+
+  loadMarker() async {
+    for (var local in locals.value) {
+      markers.value.add(Marker(
+        position: local.latLng!,
+        infoWindow: InfoWindow(title: local.description),
+        markerId: MarkerId(local.id.toString()),
+      ));
+    }
+    markers.notifyListeners();
+  }
+
+  addMarker(LocalModel local) {
+    markers.value.add(Marker(
+      position: local.latLng!,
+      infoWindow: InfoWindow(title: local.description),
+      markerId: MarkerId(local.id.toString()),
+    ));
+
+    markers.notifyListeners();
   }
 }

@@ -19,6 +19,8 @@ dependencies:
   sqflite: ^2.0.0+4
   shared_preferences: ^2.0.8
   path: ^1.8.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

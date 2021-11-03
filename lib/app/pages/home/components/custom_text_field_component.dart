@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors
 
+import 'package:engeselt_teste/app/pages/shared/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -19,18 +20,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.15),
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
+        decoration: DECORATION_SHADOW,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: TextField(

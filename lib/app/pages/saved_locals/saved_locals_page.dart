@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:engeselt_teste/app/models/local_model.dart';
 import 'package:engeselt_teste/app/pages/local_details/local_details.dart';
+import 'package:engeselt_teste/app/pages/shared/styles.dart';
 import 'package:engeselt_teste/app/store/local_store.dart';
 import 'package:flutter/material.dart';
 
@@ -39,18 +40,7 @@ class _SavedLocalsState extends State<SavedLocals> {
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.15),
-                        spreadRadius: 3,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
+                  decoration: DECORATION_SHADOW,
                   child: ListTile(
                     leading: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
