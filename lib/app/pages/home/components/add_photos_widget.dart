@@ -18,7 +18,7 @@ class _AddPhotosWidgetState extends State<AddPhotosWidget> {
   final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 80,
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -30,7 +30,7 @@ class _AddPhotosWidgetState extends State<AddPhotosWidget> {
                 padding: const EdgeInsets.only(right: 20),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Container(
+                  child: SizedBox(
                       height: 80,
                       width: 80,
                       child: Image.file(
@@ -52,7 +52,7 @@ class _AddPhotosWidgetState extends State<AddPhotosWidget> {
                       builder: (BuildContext context) {
                         return Dialog(
                           backgroundColor: Colors.white,
-                          child: Container(
+                          child: SizedBox(
                             height: 50,
                             width: 50,
                             child: Row(
@@ -62,6 +62,7 @@ class _AddPhotosWidgetState extends State<AddPhotosWidget> {
                                     onTap: () async {
                                       final XFile? photo =
                                           await _picker.pickImage(
+                                              imageQuality: 60,
                                               source: ImageSource.camera);
                                       if (photo != null) {
                                         widget.photos.add(photo.path);
